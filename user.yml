@@ -1,0 +1,20 @@
+---
+users:
+- username: "aturn"
+  comment: "Alice Turner"
+  state: present
+  password: '$6$6Rw2gdmnFujMR8J$.HsXR5eLR6d.HQPBW2eLdjNYz1vbj7qxo.zaHCiZ.0gpLDRqMBEmYRJ2v/kAKI84wztaqAYhxbTBR4/CNHC5F0'
+  groups:
+    - alice
+- username: "bdunc"
+  comment: "Bob Duncan"
+  state: present
+  password: '$6$6Rw2gdmnFujMR8J$.HsXR5eLR6d.HQPBW2eLdjNYz1vbj7qxo.zaHCiZ.0gpLDRqMBEmYRJ2v/kAKI84wztaqAYhxbTBR4/CNHC5F0'
+  groups:
+    - bob
+- username: "btail"
+  comment: "Bob Tailor"
+  state: present
+  password: '$6$6Rw2gdmnFujMR8J$.HsXR5eLR6d.HQPBW2eLdjNYz1vbj7qxo.zaHCiZ.0gpLDRqMBEmYRJ2v/kAKI84wztaqAYhxbTBR4/CNHC5F0'
+  groups:
+    - bob

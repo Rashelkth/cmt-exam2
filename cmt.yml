@@ -1,0 +1,68 @@
+---
+- name: "Create usernames and groups using Ansible playbook"
+  hosts: all
+  become: true
+  vars_files:
+    - "./user.yml"
+
+  tasks:
+    - name: "Upgrade all the packages"
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+   # The next two sections will create groups alice and bob
+    - name: "Ensure the group 'alice' exists"
+      ansible.builtin.group:
+        name: alice
+        state: present
+    - name: "Ensure the group 'bob' exists"
+      ansible.builtin.group:
+        name: bob
+        state: present
+
+# The next section will create three users aturn, bdunc and btail
+    - name: "Create all the needed users"
+      ansible.builtin.user:
+        name: "{{ item.username }}"
+        groups: "{{ item.groups }}"
+        password: "{{ item.password }}"
+        state: "{{ item.state }}"
+      loop: "{{ users }}"
+
+# The next section will create two directory in '/opt'
+    - name: "Creating a directory with the owner root and group alice"
+      ansible.builtin.file:
+        path: /opt/alice
+        state: directory
+        owner: root
+        group: alice
+        mode: '0770'
+    - name: "Creating a directory with the owner root and group bob"
+      ansible.builtin.file:
+        path: /opt/bob
+        state: directory
+        owner: root
+        group: bob
+        mode: '0770'
+
+# The last section will create  three files in /opt/<username>
+    - name: "Create a file with the content of today's date"
+      copy:
+        dest: "/opt/alice/alice.txt"
+        owner: aturn
+        content: |
+          2022-11-17
+    - name: "Create a file with the content of today's date"
+      copy:
+        dest: "/opt/bob/duncan.txt"
+        owner: bdunc
+        content: |
+          2022-11-17
+    - name: "Create a file with the content of today's date"
+      copy:
+        dest: "/opt/bob/tailor.txt"
+        owner: btail
+        content: |
+          2022-11-17
